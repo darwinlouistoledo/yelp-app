@@ -1,4 +1,5 @@
 
+
 # yelp-businesses-app
 This application is about finding a Business using Yelp Api V3.
 
@@ -18,3 +19,11 @@ In developing this application, the primary technologies and libraries are used:
  - **Reactive Location Library** - An Rx library for location manager
  - **RxPermission** - An Rx library for requesting permissions 
  
+## Features
+ - **Loading Of Businesses Based On Your Current Location**
+ - **Searching/Filtering Of Businesses Based On Term, Location or Categories**
+ - **Sorting of the result by Distance**
+ - **Sorting of the result by Rating**
+ - **Viewing of the Business Details from the List**
+ - **Map view of the result with pins and name info**
+ - **Viewing of the Business Details from the map by clicking of name info window**
