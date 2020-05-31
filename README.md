@@ -1,3 +1,4 @@
+
 # yelp-businesses-app
 This application is about finding a Business using Yelp Api V3.
 
@@ -25,3 +26,8 @@ In developing this application, the primary technologies and libraries are used:
  - **Viewing of the Business Details from the List**
  - **Map view of the result with pins and name info**
  - **Viewing of the Business Details from the map by tapping the pin and the name info window**
+
+
+### [Download APK Here](https://github.com/darwinlouistoledo/yelp-businesses-app/releases/download/v1.0.0/yelp-businesses-app.apk)
+
+### [Watch Short Clip Of The App](https://github.com/darwinlouistoledo/yelp-businesses-app/releases/download/v1.0.0/device-2020-05-31-235942.mp4)
