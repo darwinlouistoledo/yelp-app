@@ -13,8 +13,6 @@ import com.yelpbusiness.common_android.di.qualifiers.AppHttpInterceptor
 import com.yelpbusiness.common_android.di.qualifiers.AppHttpLoggingInterceptor
 import com.yelpbusiness.common_android.di.qualifiers.ApplicationContext
 import com.yelpbusiness.common_android.di.qualifiers.IsDebug
-import com.yelpbusiness.common_android.util.serializers.DateDeserializer
-import com.yelpbusiness.common_android.util.serializers.DateSerializer
 import com.yelpbusiness.data.remote.interceptor.HttpInterceptor
 import com.yelpbusiness.domain.rx.SchedulerProvider
 import dagger.Module
@@ -26,7 +24,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -63,14 +60,6 @@ class ApplicationModule {
   @Singleton
   fun provideGson(): Gson = GsonBuilder()
     .setPrettyPrinting()
-    .registerTypeAdapter(
-      Date::class.java,
-      DateDeserializer()
-    )
-    .registerTypeAdapter(
-      Date::class.java,
-      DateSerializer()
-    )
     .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
     .create()
 

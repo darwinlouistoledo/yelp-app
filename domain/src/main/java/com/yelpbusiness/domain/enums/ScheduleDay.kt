@@ -11,7 +11,7 @@ enum class ScheduleDay{
     override val value = 1
   },
   WEDNESDAY{
-    override val display = "Wednensday"
+    override val display = "Wednesday"
     override val value = 2
   },
   THURSDAY{

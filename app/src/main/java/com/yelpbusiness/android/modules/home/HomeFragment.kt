@@ -36,7 +36,6 @@ import com.yelpbusiness.domain.sealedclass.LiveResult
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
-import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 
 class HomeFragment : AppFragment() {

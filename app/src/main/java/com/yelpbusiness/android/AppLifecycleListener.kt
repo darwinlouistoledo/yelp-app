@@ -16,7 +16,6 @@ class AppLifecycleListener @Inject constructor(
 
   /**
    * Lifecycle callback when app was set to foreground
-   * Init SendBird Channel Handler
    */
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   fun onAppCreated() {

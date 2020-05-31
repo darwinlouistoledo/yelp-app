@@ -18,7 +18,6 @@ class BusinessListLocalSource @Inject constructor(
   override fun get(key: BusinessListKey): Observable<List<Business>> =
     businessDao.getAll(
       realm = realmInstance.getRealm(),
-      query = key.term,
       sortBy = key.sortBy
     )
       .map { it.map { dto -> dto.toBusiness } }
@@ -29,8 +28,6 @@ class BusinessListLocalSource @Inject constructor(
   ): Single<List<Business>> =
     businessDao.saveAll(
       data = data.map { BusinessDto(it) },
-      delete = true,
-      query = key.term,
       sortBy = key.sortBy
     )
       .map { it.map { dto -> dto.toBusiness } }

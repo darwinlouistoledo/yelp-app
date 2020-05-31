@@ -25,7 +25,6 @@ data class Business(
   val addressToDisplay = location.displayAddress.joinToString(", ")
 
   val roundedDistance = Math.round(distance * 100.0) / 100.0
-  val distanceToDisplay = "$roundedDistance Meters away"
 
   val reviewCountDisplay = reviewCount?:0
 }

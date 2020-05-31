@@ -25,10 +25,9 @@ class BusinessDao @Inject constructor() {
 
   fun getAll(
     realm: Realm,
-    query: String?,
     sortBy: BusinessSort?
   ): Observable<List<BusinessDto>> = realm.where<BusinessDto>()
-    .query(query, sortBy)
+    .query(sortBy)
     .findAllObservable()
 
   fun save(data: BusinessDto): Single<BusinessDto> = RealmHelper.rxTransaction{ realm ->
@@ -44,19 +43,16 @@ class BusinessDao @Inject constructor() {
 
   fun saveAll(
     data: List<BusinessDto>,
-    delete: Boolean,
-    query: String?,
     sortBy: BusinessSort?
   ): Single<List<BusinessDto>> = RealmHelper.rxTransaction { realm ->
     realm.where<BusinessDto>()
-      .query(query, sortBy)
+      .query(sortBy)
       .findAll()
       .deleteAllFromRealm()
     realm.saveToRealm(data)
   }
 
   private fun RealmQuery<BusinessDto>.query(
-    query: String?,
     sortBy: BusinessSort?
   ): RealmQuery<BusinessDto> = this
     .let {rq->

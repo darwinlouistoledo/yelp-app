@@ -14,7 +14,6 @@ import com.yelpbusiness.domain.sealedclass.DataResult
 import com.yelpbusiness.domain.usecase.BusinessUseCase
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.ofType
-import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 
 class BusinessDetailsViewModel @Inject constructor(

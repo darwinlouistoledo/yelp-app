@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * This is an extension function that calls to [DataBindingUtil.setContentView].
@@ -48,19 +47,3 @@ fun <B : ViewDataBinding> ViewGroup.withBinding(
   attachToParent: Boolean = false
 ): B =
   DataBindingUtil.inflate(LayoutInflater.from(context), layoutResId, this, attachToParent)
-
-/**
- * This is an extension function that calls to [DataBindingUtil.inflate].
- * Gets the data binding for layout
- */
-fun <B : ViewDataBinding> BottomSheetDialogFragment.withBinding(
-  inflater: LayoutInflater,
-  @LayoutRes layoutResId: Int,
-  parent: ViewGroup?,
-  function: B.() -> Unit = {}
-): B {
-  val binding: B = DataBindingUtil.inflate(inflater, layoutResId, parent, false)
-  binding.lifecycleOwner = viewLifecycleOwner
-  binding.function()
-  return binding
-}
