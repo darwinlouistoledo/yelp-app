@@ -19,4 +19,9 @@
       android:id="@+id/businessDetailsFragment"
       android:name="com.yelpbusiness.android.modules.business.BusinessDetailsFragment"
       tools:layout="@layout/fragment_search_input"/>
+
+  <fragment
+      android:id="@+id/businessMapFragment"
+      android:name="com.yelpbusiness.android.modules.map.BusinessesMapFragment"
+      tools:layout="@layout/fragment_business_map"/>
 </navigation>

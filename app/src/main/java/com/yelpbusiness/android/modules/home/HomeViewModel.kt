@@ -103,6 +103,7 @@ class HomeViewModel @Inject constructor(
 
     val loadAction = Observable.mergeArray(
       actions.ofType<Action.LoadBusinesses>()
+        .take(1)
         .filter {
           (it.latitude > 0f && it.longitude > 0f) &&
             (it.latitude != observableState.value?.queryData?.lat &&
@@ -177,7 +178,8 @@ class HomeViewModel @Inject constructor(
         sortBy != null && sortBy.equals(BusinessSort.DISTANCE.name, true) -> BusinessSort.DISTANCE
         sortBy != null && sortBy.equals(BusinessSort.RATING.name, true) -> BusinessSort.RATING
         else -> null
-      }
+      },
+      clearCache = true
     )
       .map<Change> {
         when (it) {

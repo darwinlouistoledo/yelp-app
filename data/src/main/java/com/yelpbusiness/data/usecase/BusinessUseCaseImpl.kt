@@ -27,25 +27,41 @@ class BusinessUseCaseImpl @Inject constructor(
     categories: String?,
     lat: Float?,
     lon: Float?,
-    sort: BusinessSort?
+    sort: BusinessSort?,
+    clearCache: Boolean
   ): Observable<DataResult<List<Business>>> = when {
     lat != null && lon != null ->
-      localCacheManager.deleteAll()
-        .toObservable()
-        .switchMap {
-          businessListRepository.get(
-            BusinessListKey(
-              term = term,
-              location = location,
-              categories = categories,
-              lat = lat.takeIf { location == null },
-              lon = lon.takeIf { location == null },
-              sortBy = sort
+      when (clearCache) {
+        true -> localCacheManager.deleteAll()
+          .toObservable()
+          .switchMap {
+            businessListRepository.get(
+              BusinessListKey(
+                term = term,
+                location = location,
+                categories = categories,
+                lat = lat.takeIf { location == null },
+                lon = lon.takeIf { location == null },
+                sortBy = sort
+              )
             )
+          }
+          .map<DataResult<List<Business>>> { DataResult.Success(it) }
+          .onErrorReturn { DataResult.Failed(it) }
+        else -> businessListRepository.get(
+          BusinessListKey(
+            term = term,
+            location = location,
+            categories = categories,
+            lat = lat.takeIf { location == null },
+            lon = lon.takeIf { location == null },
+            sortBy = sort
           )
-        }
-        .map<DataResult<List<Business>>> { DataResult.Success(it) }
-        .onErrorReturn { DataResult.Failed(it) }
+        )
+          .map<DataResult<List<Business>>> { DataResult.Success(it) }
+          .onErrorReturn { DataResult.Failed(it) }
+      }
+
     else -> Observable.just(DataResult.Failed(RequiredArgumentException("lat and lon")))
   }
 

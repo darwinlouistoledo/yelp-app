@@ -37,6 +37,7 @@
   <string name="lbl_search_businesses_categories_desc">This filter can be a list of comma delimited categories.</string>
 
   <string name="title_business_details">Business Details</string>
+  <string name="title_business_map">Map View</string>
 
 
   <plurals name="lbl_review_count">

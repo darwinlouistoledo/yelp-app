@@ -2,11 +2,7 @@ package com.yelpbusiness.android.testcases
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
-import com.yelpbusiness.domain.base.Repository
 import com.yelpbusiness.domain.exceptions.RequiredArgumentException
-import com.yelpbusiness.domain.keys.BusinessListKey
-import com.yelpbusiness.domain.manager.LocalCacheManager
-import com.yelpbusiness.domain.model.Business
 import com.yelpbusiness.domain.sealedclass.DataResult
 import com.yelpbusiness.domain.usecase.BusinessUseCase
 import io.reactivex.Observable
@@ -20,7 +16,7 @@ import java.net.UnknownHostException
 class BusinessUseCaseTest {
 
   @Test
-  fun getAllBusinessesSuccessWithLatLonTest(){
+  fun getAllBusinessesSuccessWithLatLonTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
@@ -33,7 +29,8 @@ class BusinessUseCaseTest {
         location = null,
         categories = null,
         sort = null,
-        term = null
+        term = null,
+        clearCache = true
       )
 
     //WHEN
@@ -43,8 +40,10 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
-    ).test()
+      term = null,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -53,7 +52,8 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
+      term = null,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -64,7 +64,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getAllBusinessesSuccessWithLatLonTermTest(){
+  fun getAllBusinessesSuccessWithLatLonTermTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
@@ -77,7 +77,8 @@ class BusinessUseCaseTest {
         location = null,
         categories = null,
         sort = null,
-        term = TestData.term
+        term = TestData.term,
+        clearCache = true
       )
 
     //WHEN
@@ -87,8 +88,10 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = TestData.term
-    ).test()
+      term = TestData.term,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -97,7 +100,8 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = TestData.term
+      term = TestData.term,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -108,7 +112,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getAllBusinessesSuccessWithLatLonTermLocationTest(){
+  fun getAllBusinessesSuccessWithLatLonTermLocationTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
@@ -121,7 +125,8 @@ class BusinessUseCaseTest {
         location = TestData.location,
         categories = null,
         sort = null,
-        term = TestData.term
+        term = TestData.term,
+        clearCache = true
       )
 
     //WHEN
@@ -131,8 +136,10 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = null,
       sort = null,
-      term = TestData.term
-    ).test()
+      term = TestData.term,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -141,7 +148,8 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = null,
       sort = null,
-      term = TestData.term
+      term = TestData.term,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -152,7 +160,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getAllBusinessesSuccessWithLatLonTermLocationCategoriesTest(){
+  fun getAllBusinessesSuccessWithLatLonTermLocationCategoriesTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
@@ -165,7 +173,8 @@ class BusinessUseCaseTest {
         location = TestData.location,
         categories = TestData.categories,
         sort = null,
-        term = TestData.term
+        term = TestData.term,
+        clearCache = true
       )
 
     //WHEN
@@ -175,8 +184,10 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = TestData.categories,
       sort = null,
-      term = TestData.term
-    ).test()
+      term = TestData.term,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -185,7 +196,8 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = TestData.categories,
       sort = null,
-      term = TestData.term
+      term = TestData.term,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -196,7 +208,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getAllBusinessesSuccessWithAllTest(){
+  fun getAllBusinessesSuccessWithAllTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
@@ -209,7 +221,8 @@ class BusinessUseCaseTest {
         location = TestData.location,
         categories = TestData.categories,
         sort = TestData.sort,
-        term = TestData.term
+        term = TestData.term,
+        clearCache = true
       )
 
     //WHEN
@@ -219,8 +232,10 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = TestData.categories,
       sort = TestData.sort,
-      term = TestData.term
-    ).test()
+      term = TestData.term,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -229,7 +244,8 @@ class BusinessUseCaseTest {
       location = TestData.location,
       categories = TestData.categories,
       sort = TestData.sort,
-      term = TestData.term
+      term = TestData.term,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -240,7 +256,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getAllBusinessesLanLonRequiredTest(){
+  fun getAllBusinessesLanLonRequiredTest() {
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
     val throwable = RequiredArgumentException("lat and lon")
@@ -253,7 +269,8 @@ class BusinessUseCaseTest {
         location = null,
         categories = null,
         sort = null,
-        term = null
+        term = null,
+        clearCache = true
       )
 
     //WHEN
@@ -263,8 +280,10 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
-    ).test()
+      term = null,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -273,7 +292,8 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
+      term = null,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -282,9 +302,8 @@ class BusinessUseCaseTest {
     result.assertValue(DataResult.Failed(throwable))
   }
 
-
   @Test
-  fun getAllBusinessesFailedTest(){
+  fun getAllBusinessesFailedTest() {
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
     val throwable = UnknownHostException()
@@ -297,7 +316,8 @@ class BusinessUseCaseTest {
         location = null,
         categories = null,
         sort = null,
-        term = null
+        term = null,
+        clearCache = true
       )
 
     //WHEN
@@ -307,8 +327,10 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
-    ).test()
+      term = null,
+      clearCache = true
+    )
+      .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
@@ -317,7 +339,8 @@ class BusinessUseCaseTest {
       location = null,
       categories = null,
       sort = null,
-      term = null
+      term = null,
+      clearCache = true
     )
 
     result.assertNoErrors()
@@ -327,7 +350,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getBusinessDetailsSuccessTest(){
+  fun getBusinessDetailsSuccessTest() {
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
@@ -350,7 +373,7 @@ class BusinessUseCaseTest {
   }
 
   @Test
-  fun getBusinessDetailsFailedTest(){
+  fun getBusinessDetailsFailedTest() {
 
     //GIVEN
     val mockBusinessUseCase = mock<BusinessUseCase>()

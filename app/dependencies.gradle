@@ -44,6 +44,9 @@ ext {
 
       [configuration: "testImplementation", dependency: "org.amshove.kluent:kluent:$kluent"],
 
+      // Google Play Service
+      [configuration: "implementation", dependency: "com.google.android.gms:play-services-maps:$play_services_version"],
+
       // Android Architecture Components
 
       // Navigation

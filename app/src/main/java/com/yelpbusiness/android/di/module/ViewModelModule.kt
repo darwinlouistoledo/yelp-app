@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.yelpbusiness.android.di.mapkey.ViewModelKey
 import com.yelpbusiness.android.modules.business.BusinessDetailsViewModel
 import com.yelpbusiness.android.modules.home.HomeViewModel
+import com.yelpbusiness.android.modules.map.BusinessesMapViewModel
 import com.yelpbusiness.android.modules.search.SearchInputManagerViewModel
 import dagger.Binds
 import dagger.Module
@@ -26,5 +27,10 @@ abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(BusinessDetailsViewModel::class)
   abstract fun businessDetailsViewModel(businessDetailsViewModel: BusinessDetailsViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(BusinessesMapViewModel::class)
+  abstract fun businessesMapViewModel(businessesMapViewModel: BusinessesMapViewModel): ViewModel
 
 }

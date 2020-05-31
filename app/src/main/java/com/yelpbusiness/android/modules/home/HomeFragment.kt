@@ -18,6 +18,7 @@ import com.yelpbusiness.android.base.AppFragment
 import com.yelpbusiness.android.databinding.FragmentHomeBinding
 import com.yelpbusiness.android.modules.business.BusinessDetailsFragment
 import com.yelpbusiness.android.modules.home.HomeViewModel.Action
+import com.yelpbusiness.android.modules.map.BusinessesMapFragment
 import com.yelpbusiness.android.modules.search.SearchInputFragment
 import com.yelpbusiness.android.modules.search.SearchInputManagerViewModel
 import com.yelpbusiness.android.view.adapter.BusinessListItemAdapter
@@ -116,6 +117,23 @@ class HomeFragment : AppFragment() {
           sortDialog.show()
         }
         .addTo(disposeBag)
+
+      RxViewUtil.click(fabMap)
+        .observeOn(schedulerProvider.ui())
+        .subscribe {
+          val args = BusinessesMapFragment.generateArgs(
+            term = viewModel.observableState.value?.queryData?.term,
+            location = viewModel.observableState.value?.queryData?.location ,
+            categories = viewModel.observableState.value?.queryData?.categories ,
+            sort = viewModel.observableState.value?.queryData?.sort ,
+            lat = viewModel.observableState.value?.queryData?.lat ?: throw IllegalStateException("Latitude should not be null"),
+            lon = viewModel.observableState.value?.queryData?.lon ?: throw IllegalStateException("Longitude should not be null")
+          )
+          findNavController().navigate(R.id.businessMapFragment, args)
+        }
+        .addTo(disposeBag)
+
+
     }
 
     Observable.just(true)

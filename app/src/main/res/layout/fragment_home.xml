@@ -72,16 +72,16 @@
         android:id="@+id/tvFilterValues"
         style="@style/app_screen_content.regular"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_height="wrap_content"
+        android:text="@string/lbl_filters"
         android:textSize="@dimen/font_size_14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         tools:maxLines="4"
-        android:text="@string/lbl_filters"
         />
 
     <com.google.android.material.chip.ChipGroup
@@ -92,7 +92,8 @@
         android:paddingEnd="@dimen/padding_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFilterValues"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvFilterValues"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -104,6 +105,19 @@
         app:layout_constraintTop_toBottomOf="@+id/chipFilters"
         tools:itemCount="3"
         tools:listitem="@layout/viewholder_item_business_feed"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:src="@drawable/ic_action_map"
+        android:tint="@color/white"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

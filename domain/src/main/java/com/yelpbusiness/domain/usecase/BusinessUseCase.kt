@@ -13,7 +13,8 @@ interface BusinessUseCase {
     categories: String?,
     lat: Float?,
     lon: Float?,
-    sort: BusinessSort?
+    sort: BusinessSort?,
+    clearCache: Boolean
   ): Observable<DataResult<List<Business>>>
 
   fun getBusiness(id: String): Observable<DataResult<Business>>

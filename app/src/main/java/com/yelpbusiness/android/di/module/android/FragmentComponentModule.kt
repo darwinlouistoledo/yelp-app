@@ -2,6 +2,7 @@ package com.yelpbusiness.android.di.module.android
 
 import com.yelpbusiness.android.modules.business.BusinessDetailsFragment
 import com.yelpbusiness.android.modules.home.HomeFragment
+import com.yelpbusiness.android.modules.map.BusinessesMapFragment
 import com.yelpbusiness.android.modules.search.SearchInputFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -20,5 +21,8 @@ abstract class FragmentComponentModule {
 
   @ContributesAndroidInjector
   abstract fun businessDetailsFragment(): BusinessDetailsFragment
+
+  @ContributesAndroidInjector
+  abstract fun businessesMapFragment(): BusinessesMapFragment
 
 }

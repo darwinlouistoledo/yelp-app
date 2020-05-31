@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
             android:text="@string/lbl_search_businesses_term_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
             android:text="@string/lbl_search_businesses_location_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingStart="@dimen/padding_medium"
+            android:paddingEnd="@dimen/padding_medium"
             android:text="@string/lbl_search_businesses_categories_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
