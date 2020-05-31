@@ -1,0 +1,46 @@
+<resources>
+  <string name="app_name">YELP Business</string>
+
+  <string name="loading_searching">Searching businesses...</string>
+  <string name="generic_error_msg">Sorry, something went wrong. Please try again!</string>
+
+  <string name="lbl_okay">Okay</string>
+  <string name="lbl_yes">Yes</string>
+  <string name="lbl_no">No</string>
+  <string name="lbl_filters">Filter(s)</string>
+  <string name="lbl_apply">Apply</string>
+  <string name="lbl_clear">Clear All</string>
+  <string name="lbl_open_hours">Schedule</string>
+  <string name="lbl_start_time">Opening: %s</string>
+  <string name="lbl_end_time">Closing: %s</string>
+  <string name="lbl_open_overnight">Overnight: %s</string>
+  <string name="lbl_open_now">(Open right now)</string>
+  <string name="lbl_close_now">(Closed Right Now)</string>
+  <string name="lbl_meters_away_from_you">%s Meters away from your location</string>
+  <string name="lbl_meters_away_from_searched">%s Meters away from searched location</string>
+
+  <string name="title_sort_by">Sort By</string>
+
+  <string name="title_search_businesses">Search Businesses</string>
+  <string name="lbl_search_businesses_header">You can find businesses by searching in any of the following fields.</string>
+
+  <string name="lbl_search_businesses_term">Term</string>
+  <string name="lbl_search_businesses_term_hint">Ex: food or restaurants or Starbucks</string>
+  <string name="lbl_search_businesses_term_desc">The term may also be business names.</string>
+
+  <string name="lbl_search_businesses_location">Location</string>
+  <string name="lbl_search_businesses_location_hint">Ex: Taguig or Pasig</string>
+  <string name="lbl_search_businesses_location_desc">The location may also be a Postal Code.</string>
+
+  <string name="lbl_search_businesses_categories">Categories</string>
+  <string name="lbl_search_businesses_categories_hint">Ex: bars,french</string>
+  <string name="lbl_search_businesses_categories_desc">This filter can be a list of comma delimited categories.</string>
+
+  <string name="title_business_details">Business Details</string>
+
+
+  <plurals name="lbl_review_count">
+    <item quantity="one">%d Review</item>
+    <item quantity="other">%d Reviews</item>
+  </plurals>
+</resources>
