@@ -1,0 +1,5 @@
+rootProject.name='YELP Business'
+include ':app'
+include ':domain'
+include ':common_android'
+include ':data'

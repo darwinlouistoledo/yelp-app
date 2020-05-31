@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_medium"
+      android:minHeight="200dp"
+      app:cardCornerRadius="4dp"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/cardBackground"
+        >
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/ivPhoto"
+          android:layout_width="120dp"
+          android:layout_height="200dp"
+          android:scaleType="centerCrop"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:src="@drawable/img_placeholder_blurred"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvName"
+          style="@style/app_screen_content_header.large.black"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_medium"
+          android:layout_marginTop="@dimen/margin_medium"
+          android:layout_marginEnd="@dimen/margin_medium"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/ivPhoto"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="Sample Business Name"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvRateValue"
+          style="@style/app_screen_content.regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_extra_small"
+          android:textSize="@dimen/font_size_12sp"
+          app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+          app:layout_constraintStart_toEndOf="@+id/ratingBar"
+          app:layout_constraintTop_toTopOf="@+id/ratingBar"
+          tools:text="2.0"
+          />
+
+      <me.zhanghai.android.materialratingbar.MaterialRatingBar
+          android:id="@+id/ratingBar"
+          android:layout_width="wrap_content"
+          android:layout_height="14dp"
+          android:layout_gravity="center_horizontal"
+          android:isIndicator="true"
+          android:rating="2.0"
+          app:layout_constraintStart_toStartOf="@+id/tvName"
+          app:layout_constraintTop_toBottomOf="@+id/tvName"
+          app:mrb_fillBackgroundStars="true"
+          app:mrb_progressBackgroundTint="@color/secondGrey"
+          app:mrb_progressTint="@color/ratingColor"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/appCompatImageView2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="@+id/ratingBar"
+          app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+          app:srcCompat="@drawable/ic_address_location"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvAddress"
+          style="@style/app_screen_content.regular"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_extra_small"
+          android:layout_marginTop="@dimen/margin_extra_small"
+          android:layout_marginEnd="@dimen/margin_medium"
+          android:textSize="@dimen/font_size_12sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+          app:layout_constraintTop_toTopOf="@+id/appCompatImageView2"
+          tools:text="91 Drumm St, San Francisco, CA 94111"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/appCompatImageView3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_extra_small"
+          app:layout_constraintStart_toStartOf="@+id/appCompatImageView2"
+          app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+          app:srcCompat="@drawable/ic_direction"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvDistance"
+          style="@style/app_screen_content.regular"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_extra_small"
+          android:layout_marginTop="@dimen/margin_extra_small"
+          android:layout_marginEnd="@dimen/margin_medium"
+          android:layout_marginBottom="@dimen/margin_medium"
+          android:textColor="@color/activeGreen"
+          android:textSize="@dimen/font_size_12sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/appCompatImageView3"
+          app:layout_constraintTop_toTopOf="@+id/appCompatImageView3"
+          tools:text="500 meters away"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</layout>

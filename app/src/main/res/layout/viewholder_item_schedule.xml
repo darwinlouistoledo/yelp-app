@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <com.google.android.material.card.MaterialCardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_extra_small"
+      app:cardCornerRadius="4dp"
+      >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/cardBackground"
+        android:padding="@dimen/padding_small"
+        >
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvDay"
+          style="@style/app_screen_content.regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="Monday"
+          android:textColor="@color/activeGreen"
+          android:textSize="@dimen/font_size_10sp"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvStartTime"
+          style="@style/app_screen_content.regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          tools:text="@string/lbl_start_time"
+          android:textSize="@dimen/font_size_10sp"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvEndTime"
+          style="@style/app_screen_content.regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          tools:text="@string/lbl_end_time"
+          android:textSize="@dimen/font_size_10sp"
+          />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/tvOvernight"
+          style="@style/app_screen_content.regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          tools:text="@string/lbl_open_overnight"
+          android:textSize="@dimen/font_size_10sp"
+          />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</layout>
