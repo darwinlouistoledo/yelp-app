@@ -9,9 +9,9 @@ object ScheduleAdapterDiffCallback : DiffUtil.ItemCallback<Schedule>() {
     oldItem: Schedule,
     newItem: Schedule
   ): Boolean = oldItem.day == newItem.day &&
-    oldItem.startTime == newItem.startTime &&
-    oldItem.endTime == newItem.endTime &&
-    oldItem.isOvernight == newItem.isOvernight
+      oldItem.startTime == newItem.startTime &&
+      oldItem.endTime == newItem.endTime &&
+      oldItem.isOvernight == newItem.isOvernight
 
   override fun areContentsTheSame(
     oldItem: Schedule,

@@ -22,8 +22,19 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessList)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = null,
+            categories = null,
+            sort = null,
+            term = null,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = null,
@@ -31,29 +42,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = null,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = null,
+        categories = null,
+        sort = null,
+        term = null,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -70,8 +70,19 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessList)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = null,
+            categories = null,
+            sort = null,
+            term = TestData.term,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = null,
@@ -79,29 +90,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = TestData.term,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = null,
+        categories = null,
+        sort = null,
+        term = TestData.term,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -118,8 +118,19 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessList)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = TestData.location,
+            categories = null,
+            sort = null,
+            term = TestData.term,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = TestData.location,
@@ -127,29 +138,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = TestData.term,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = null,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = null,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = TestData.location,
+        categories = null,
+        sort = null,
+        term = TestData.term,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -166,8 +166,19 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessList)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = TestData.location,
+            categories = TestData.categories,
+            sort = null,
+            term = TestData.term,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = TestData.location,
@@ -175,29 +186,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = TestData.term,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = TestData.categories,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = TestData.categories,
-      sort = null,
-      term = TestData.term,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = TestData.location,
+        categories = TestData.categories,
+        sort = null,
+        term = TestData.term,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -214,8 +214,19 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessList)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = TestData.location,
+            categories = TestData.categories,
+            sort = TestData.sort,
+            term = TestData.term,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = TestData.location,
@@ -223,29 +234,18 @@ class BusinessUseCaseTest {
         sort = TestData.sort,
         term = TestData.term,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = TestData.categories,
-      sort = TestData.sort,
-      term = TestData.term,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = TestData.location,
-      categories = TestData.categories,
-      sort = TestData.sort,
-      term = TestData.term,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = TestData.location,
+        categories = TestData.categories,
+        sort = TestData.sort,
+        term = TestData.term,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -262,8 +262,19 @@ class BusinessUseCaseTest {
     val throwable = RequiredArgumentException("lat and lon")
 
     doReturn(Observable.just(DataResult.Failed(throwable)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = null,
+            lon = null,
+            location = null,
+            categories = null,
+            sort = null,
+            term = null,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = null,
         lon = null,
         location = null,
@@ -271,29 +282,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = null,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = null,
-      lon = null,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = null,
-      lon = null,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
+        lat = null,
+        lon = null,
+        location = null,
+        categories = null,
+        sort = null,
+        term = null,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -309,8 +309,19 @@ class BusinessUseCaseTest {
     val throwable = UnknownHostException()
 
     doReturn(Observable.just(DataResult.Failed(throwable)))
-      .`when`(mockBusinessUseCase)
-      .getBusinesses(
+        .`when`(mockBusinessUseCase)
+        .getBusinesses(
+            lat = TestData.latitude,
+            lon = TestData.longitude,
+            location = null,
+            categories = null,
+            sort = null,
+            term = null,
+            clearCache = true
+        )
+
+    //WHEN
+    val result = mockBusinessUseCase.getBusinesses(
         lat = TestData.latitude,
         lon = TestData.longitude,
         location = null,
@@ -318,29 +329,18 @@ class BusinessUseCaseTest {
         sort = null,
         term = null,
         clearCache = true
-      )
-
-    //WHEN
-    val result = mockBusinessUseCase.getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
     )
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusinesses(
-      lat = TestData.latitude,
-      lon = TestData.longitude,
-      location = null,
-      categories = null,
-      sort = null,
-      term = null,
-      clearCache = true
+        lat = TestData.latitude,
+        lon = TestData.longitude,
+        location = null,
+        categories = null,
+        sort = null,
+        term = null,
+        clearCache = true
     )
 
     result.assertNoErrors()
@@ -355,12 +355,12 @@ class BusinessUseCaseTest {
     val mockBusinessUseCase = mock<BusinessUseCase>()
 
     doReturn(Observable.just(DataResult.Success(TestData.businessOne)))
-      .`when`(mockBusinessUseCase)
-      .getBusiness(TestData.businessOne.id)
+        .`when`(mockBusinessUseCase)
+        .getBusiness(TestData.businessOne.id)
 
     //WHEN
     val result = mockBusinessUseCase.getBusiness(TestData.businessOne.id)
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusiness(TestData.businessOne.id)
@@ -380,12 +380,12 @@ class BusinessUseCaseTest {
     val throwable = UnknownHostException()
 
     doReturn(Observable.just(DataResult.Failed(throwable)))
-      .`when`(mockBusinessUseCase)
-      .getBusiness(TestData.businessOne.id)
+        .`when`(mockBusinessUseCase)
+        .getBusiness(TestData.businessOne.id)
 
     //WHEN
     val result = mockBusinessUseCase.getBusiness(TestData.businessOne.id)
-      .test()
+        .test()
 
     //THEN
     verify(mockBusinessUseCase).getBusiness(TestData.businessOne.id)

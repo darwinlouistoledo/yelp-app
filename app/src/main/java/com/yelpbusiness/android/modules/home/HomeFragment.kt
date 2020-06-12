@@ -33,11 +33,13 @@ import com.yelpbusiness.domain.enums.BusinessSort
 import com.yelpbusiness.domain.model.Business
 import com.yelpbusiness.domain.rx.SchedulerProvider
 import com.yelpbusiness.domain.sealedclass.LiveResult
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : AppFragment() {
 
   private lateinit var binding: FragmentHomeBinding
@@ -71,98 +73,99 @@ class HomeFragment : AppFragment() {
     searchInputManagerViewModel = withViewModel(requireActivity(), viewModelFactory) {
       observe(searchFilters) {
         it.getContentIfNotHandled()
-          ?.let { value ->
-            viewModel.dispatch(Action.SetSearchFilters(value))
-          }
+            ?.let { value ->
+              viewModel.dispatch(Action.SetSearchFilters(value))
+            }
       }
     }
 
     val sortDialog = MaterialDialog(requireContext())
-      .title(res = R.string.title_sort_by)
-      .listItemsSingleChoice(
-        items = listOf(
-          BusinessSort.DISTANCE.name.toLowerCase()
-            .capitalize(),
-          BusinessSort.RATING.name.toLowerCase()
-            .capitalize()
-        )
-      ) { dialog, index, text ->
-        viewModel.dispatch(Action.SetSort(text.toString()))
-      }
+        .title(res = R.string.title_sort_by)
+        .listItemsSingleChoice(
+            items = listOf(
+                BusinessSort.DISTANCE.name.toLowerCase()
+                    .capitalize(),
+                BusinessSort.RATING.name.toLowerCase()
+                    .capitalize()
+            )
+        ) { dialog, index, text ->
+          viewModel.dispatch(Action.SetSort(text.toString()))
+        }
 
     binding.apply {
       recyclerView.apply {
         adapter = adapterItems
         layoutManager = LinearLayoutManager(
-          requireContext(), LinearLayoutManager.VERTICAL, false
+            requireContext(), LinearLayoutManager.VERTICAL, false
         )
       }
 
       RxViewUtil.click(ivSearch)
-        .observeOn(schedulerProvider.ui())
-        .subscribe {
-          val args = SearchInputFragment.generateArgs(
-            term = viewModel.observableState.value?.queryData?.term ?: "",
-            location = viewModel.observableState.value?.queryData?.location ?: "",
-            categories = viewModel.observableState.value?.queryData?.categories ?: ""
-          )
-          findNavController().navigate(R.id.searchFragment, args)
-        }
-        .addTo(disposeBag)
+          .observeOn(schedulerProvider.ui())
+          .subscribe {
+            val args = SearchInputFragment.generateArgs(
+                term = viewModel.observableState.value?.queryData?.term ?: "",
+                location = viewModel.observableState.value?.queryData?.location ?: "",
+                categories = viewModel.observableState.value?.queryData?.categories ?: ""
+            )
+            findNavController().navigate(R.id.searchFragment, args)
+          }
+          .addTo(disposeBag)
 
       RxViewUtil.click(ivSort)
-        .observeOn(schedulerProvider.ui())
-        .subscribe {
-          sortDialog.show()
-        }
-        .addTo(disposeBag)
+          .observeOn(schedulerProvider.ui())
+          .subscribe {
+            sortDialog.show()
+          }
+          .addTo(disposeBag)
 
       RxViewUtil.click(fabMap)
-        .observeOn(schedulerProvider.ui())
-        .subscribe {
-          val args = BusinessesMapFragment.generateArgs(
-            term = viewModel.observableState.value?.queryData?.term,
-            location = viewModel.observableState.value?.queryData?.location ,
-            categories = viewModel.observableState.value?.queryData?.categories ,
-            sort = viewModel.observableState.value?.queryData?.sort ,
-            lat = viewModel.observableState.value?.queryData?.lat ?: throw IllegalStateException("Latitude should not be null"),
-            lon = viewModel.observableState.value?.queryData?.lon ?: throw IllegalStateException("Longitude should not be null")
-          )
-          findNavController().navigate(R.id.businessMapFragment, args)
-        }
-        .addTo(disposeBag)
-
+          .observeOn(schedulerProvider.ui())
+          .subscribe {
+            val args = BusinessesMapFragment.generateArgs(
+                term = viewModel.observableState.value?.queryData?.term,
+                location = viewModel.observableState.value?.queryData?.location,
+                categories = viewModel.observableState.value?.queryData?.categories,
+                sort = viewModel.observableState.value?.queryData?.sort,
+                lat = viewModel.observableState.value?.queryData?.lat
+                    ?: throw IllegalStateException("Latitude should not be null"),
+                lon = viewModel.observableState.value?.queryData?.lon
+                    ?: throw IllegalStateException("Longitude should not be null")
+            )
+            findNavController().navigate(R.id.businessMapFragment, args)
+          }
+          .addTo(disposeBag)
 
     }
 
     Observable.just(true)
-      .subscribeOn(schedulerProvider.io())
-      .observeOn(schedulerProvider.ui())
-      .switchMap {
-        locationManager.getLocation(requireActivity())
-      }
-      .doOnError {
-        it.printStackTrace()
-      }
-      .subscribe { locationStatus ->
-        when (locationStatus) {
-          is OpenAppInfo -> {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            intent.data = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-            startActivity(intent)
-          }
-          is CurrentLocation -> {
-            Timber.i("CurrentLocation")
-            viewModel.dispatch(
-              Action.LoadBusinesses(
-                latitude = locationStatus.location.latitude.toFloat(),
-                longitude = locationStatus.location.longitude.toFloat()
+        .subscribeOn(schedulerProvider.io())
+        .observeOn(schedulerProvider.ui())
+        .switchMap {
+          locationManager.getLocation(requireActivity())
+        }
+        .doOnError {
+          it.printStackTrace()
+        }
+        .subscribe { locationStatus ->
+          when (locationStatus) {
+            is OpenAppInfo -> {
+              val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+              intent.data = Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+              startActivity(intent)
+            }
+            is CurrentLocation -> {
+              Timber.i("CurrentLocation")
+              viewModel.dispatch(
+                  Action.LoadBusinesses(
+                      latitude = locationStatus.location.latitude.toFloat(),
+                      longitude = locationStatus.location.longitude.toFloat()
+                  )
               )
-            )
+            }
           }
         }
-      }
-      .addTo(disposeBag)
+        .addTo(disposeBag)
 
   }
 
@@ -173,32 +176,32 @@ class HomeFragment : AppFragment() {
     inflateFilters(state.filterDisplay)
 
     state.loadingResult?.getContentIfNotHandled()
-      ?.let {
-        when (it) {
-          is LiveResult.Success -> {
-            dismissProgressDialog()
-          }
-          is LiveResult.Failed -> {
-            dismissProgressDialog()
-            errorHandler.handle(this, it.error)
-          }
-          is LiveResult.Loading -> {
-            adapterItems.submitList(emptyList())
-            showProgressDialog()
+        ?.let {
+          when (it) {
+            is LiveResult.Success -> {
+              dismissProgressDialog()
+            }
+            is LiveResult.Failed -> {
+              dismissProgressDialog()
+              errorHandler.handle(this, it.error)
+            }
+            is LiveResult.Loading -> {
+              adapterItems.submitList(emptyList())
+              showProgressDialog()
+            }
           }
         }
-      }
 
     state.error?.getContentIfNotHandled()
-      ?.let {
-        errorHandler.handle(this, it)
-      }
+        ?.let {
+          errorHandler.handle(this, it)
+        }
   }
 
   private fun onViewBusinessDetails(business: Business) {
     findNavController().navigate(
-      R.id.businessDetailsFragment,
-      BusinessDetailsFragment.generateArgs(business.id)
+        R.id.businessDetailsFragment,
+        BusinessDetailsFragment.generateArgs(business.id)
     )
   }
 

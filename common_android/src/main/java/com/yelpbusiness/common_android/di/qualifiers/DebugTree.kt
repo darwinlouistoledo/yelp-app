@@ -4,5 +4,5 @@ import javax.inject.Qualifier
 
 @Qualifier
 @MustBeDocumented
-@Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.BINARY)
 annotation class DebugTree

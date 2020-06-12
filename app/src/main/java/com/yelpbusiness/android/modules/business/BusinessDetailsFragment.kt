@@ -23,14 +23,16 @@ import com.yelpbusiness.common_android.ext.databinding.withBinding
 import com.yelpbusiness.common_android.ext.view.makeVisibleOrGone
 import com.yelpbusiness.domain.exceptions.RequiredArgumentException
 import com.yelpbusiness.domain.model.Category
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BusinessDetailsFragment : AppFragment() {
 
   companion object {
     fun generateArgs(
       businessId: String
     ): Bundle = bundleOf(
-      EXTRA_ARG_BUSINESS_iD to businessId
+        EXTRA_ARG_BUSINESS_iD to businessId
     )
 
     const val EXTRA_ARG_BUSINESS_iD = "extra_arg_business_id"
@@ -57,11 +59,12 @@ class BusinessDetailsFragment : AppFragment() {
       observe(observableState, ::render)
 
       dispatch(
-        Action.LoadBusinessData(
-          requireArguments().getString(EXTRA_ARG_BUSINESS_iD) ?: throw RequiredArgumentException(
-            "businessId"
+          Action.LoadBusinessData(
+              requireArguments().getString(EXTRA_ARG_BUSINESS_iD)
+                  ?: throw RequiredArgumentException(
+                      "businessId"
+                  )
           )
-        )
       )
     }
 
@@ -85,8 +88,8 @@ class BusinessDetailsFragment : AppFragment() {
   private fun render(state: State) {
 
     binding.apply {
-      detailsContainer.makeVisibleOrGone(state.business!=null)
-      spinKit.makeVisibleOrGone(state.business==null)
+      detailsContainer.makeVisibleOrGone(state.business != null)
+      spinKit.makeVisibleOrGone(state.business == null)
 
       state.business?.let { b ->
 
@@ -99,11 +102,11 @@ class BusinessDetailsFragment : AppFragment() {
         tvAddress.text = b.addressToDisplay
 
         tvPhone.text = b.displayPhone
-        tvPhone.makeVisibleOrGone(b.displayPhone != null || b.displayPhone!="")
-        appCompatImageView3.makeVisibleOrGone(b.displayPhone != null || b.displayPhone!="")
+        tvPhone.makeVisibleOrGone(b.displayPhone != null || b.displayPhone != "")
+        appCompatImageView3.makeVisibleOrGone(b.displayPhone != null || b.displayPhone != "")
 
         tvRateValue.text = requireContext().resources.getQuantityString(
-          R.plurals.lbl_review_count, b.reviewCountDisplay, b.reviewCountDisplay
+            R.plurals.lbl_review_count, b.reviewCountDisplay, b.reviewCountDisplay
         )
 
         rvSchedule.makeVisibleOrGone(b.hours.isNotEmpty())
@@ -111,23 +114,26 @@ class BusinessDetailsFragment : AppFragment() {
         tvHours.makeVisibleOrGone(b.hours.isNotEmpty())
         tvOpen.makeVisibleOrGone(b.hours.isNotEmpty())
 
-        tvOpen.text = when(state.isOpenNow){
+        tvOpen.text = when (state.isOpenNow) {
           true -> getString(R.string.lbl_open_now)
           false -> getString(R.string.lbl_close_now)
         }
 
-        tvOpen.setTextColor(when(state.isOpenNow){
-          true -> Color.GREEN
-          false -> Color.RED
-        })
+        tvOpen.setTextColor(
+            when (state.isOpenNow) {
+              true -> Color.GREEN
+              false -> Color.RED
+            }
+        )
 
         adapterSchedule.submitList(state.schedules)
       }
     }
 
-    state.error?.getContentIfNotHandled()?.let {
-      errorHandler.handle(this, it)
-    }
+    state.error?.getContentIfNotHandled()
+        ?.let {
+          errorHandler.handle(this, it)
+        }
   }
 
   private fun inflateCategories(list: List<Category>) {

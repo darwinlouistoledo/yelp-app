@@ -30,13 +30,18 @@ import com.yelpbusiness.common_android.ext.databinding.withBinding
 import com.yelpbusiness.domain.model.Business
 import com.yelpbusiness.domain.model.LoadBusinessesQueryData
 import com.yelpbusiness.domain.rx.SchedulerProvider
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 
-class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickListener, OnInfoWindowClickListener {
+@AndroidEntryPoint
+class BusinessesMapFragment : AppFragment(),
+    OnMapReadyCallback,
+    OnMarkerClickListener,
+    OnInfoWindowClickListener {
 
   companion object {
     fun generateArgs(
@@ -47,12 +52,12 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
       lat: Float,
       lon: Float
     ): Bundle = bundleOf(
-      EXTRA_ARG_TERM to term,
-      EXTRA_ARG_LOCATION to location,
-      EXTRA_ARG_CATEGORIES to categories,
-      EXTRA_ARG_SORT to sort,
-      EXTRA_ARG_LAT to lat,
-      EXTRA_ARG_LON to lon
+        EXTRA_ARG_TERM to term,
+        EXTRA_ARG_LOCATION to location,
+        EXTRA_ARG_CATEGORIES to categories,
+        EXTRA_ARG_SORT to sort,
+        EXTRA_ARG_LAT to lat,
+        EXTRA_ARG_LON to lon
     )
 
     private const val EXTRA_ARG_TERM = "extra_arg_term"
@@ -91,13 +96,13 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
     }
 
     Observable.just(true)
-      .take(1)
-      .delay(500, MILLISECONDS)
-      .observeOn(schedulerProvider.ui())
-      .subscribe {
-        setupMap()
-      }
-      .addTo(disposeBag)
+        .take(1)
+        .delay(500, MILLISECONDS)
+        .observeOn(schedulerProvider.ui())
+        .subscribe {
+          setupMap()
+        }
+        .addTo(disposeBag)
 
     binding.apply {
       toolbarBack.setOnClickListener { onBackPressed() }
@@ -107,34 +112,35 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
   private fun render(state: State) {
     Timber.d("render")
 
-    state.populateMap?.getContentIfNotHandled()?.let {
-      placeMarkers(state.businessList, state.queryData)
-    }
+    state.populateMap?.getContentIfNotHandled()
+        ?.let {
+          placeMarkers(state.businessList, state.queryData)
+        }
 
     state.error?.getContentIfNotHandled()
-      ?.let {
-        errorHandler.handle(this, it)
-      }
+        ?.let {
+          errorHandler.handle(this, it)
+        }
   }
 
   private fun setupMap() {
     mapFragment = SupportMapFragment.newInstance(
-      GoogleMapOptions()
-        .mapType(GoogleMap.MAP_TYPE_NORMAL)
-        .rotateGesturesEnabled(true)
-        .maxZoomPreference(100f)
-        .minZoomPreference(10f)
-        .zoomGesturesEnabled(true)
-        .zoomControlsEnabled(true)
-        .useViewLifecycleInFragment(true)
+        GoogleMapOptions()
+            .mapType(GoogleMap.MAP_TYPE_NORMAL)
+            .rotateGesturesEnabled(true)
+            .maxZoomPreference(100f)
+            .minZoomPreference(10f)
+            .zoomGesturesEnabled(true)
+            .zoomControlsEnabled(true)
+            .useViewLifecycleInFragment(true)
     )
-      .apply {
-        retainInstance = true
-      }
+        .apply {
+          retainInstance = true
+        }
 
     childFragmentManager.beginTransaction()
-      .replace(R.id.mapContainer, mapFragment)
-      .commit()
+        .replace(R.id.mapContainer, mapFragment)
+        .commit()
     mapFragment.getMapAsync(this)
   }
 
@@ -145,14 +151,14 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
       mGoogleMap?.setOnInfoWindowClickListener(this)
 
       viewModel.dispatch(
-        Action.LoadBusinesses(
-          lat = requireArguments().getFloat(EXTRA_ARG_LAT),
-          lon = requireArguments().getFloat(EXTRA_ARG_LON),
-          term = requireArguments().getString(EXTRA_ARG_TERM),
-          location = requireArguments().getString(EXTRA_ARG_LOCATION),
-          categories = requireArguments().getString(EXTRA_ARG_CATEGORIES),
-          sort = requireArguments().getString(EXTRA_ARG_SORT)
-        )
+          Action.LoadBusinesses(
+              lat = requireArguments().getFloat(EXTRA_ARG_LAT),
+              lon = requireArguments().getFloat(EXTRA_ARG_LON),
+              term = requireArguments().getString(EXTRA_ARG_TERM),
+              location = requireArguments().getString(EXTRA_ARG_LOCATION),
+              categories = requireArguments().getString(EXTRA_ARG_CATEGORIES),
+              sort = requireArguments().getString(EXTRA_ARG_SORT)
+          )
       )
 
       viewModel.dispatch(Action.PopulateMap)
@@ -171,40 +177,43 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
       if (it.tag is Business) {
         val b = it.tag as Business
         findNavController().navigate(
-          R.id.businessDetailsFragment,
-          BusinessDetailsFragment.generateArgs(b.id)
+            R.id.businessDetailsFragment,
+            BusinessDetailsFragment.generateArgs(b.id)
         )
       }
     }
   }
 
-  private fun placeMarkers(list: List<Business>, queryData: LoadBusinessesQueryData?) {
+  private fun placeMarkers(
+    list: List<Business>,
+    queryData: LoadBusinessesQueryData?
+  ) {
     mGoogleMap?.let {
       it.clear()
       list.forEach { b ->
         Timber.d("creating business marker = ${b.name}")
         val latLon = LatLng(b.coordinates.latitude.toDouble(), b.coordinates.longitude.toDouble())
         val marker = it.addMarker(
-          MarkerOptions()
-            .position(latLon)
-            .title(b.name)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_business))
+            MarkerOptions()
+                .position(latLon)
+                .title(b.name)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_business))
         )
         marker?.tag = b
       }
     }
 
     queryData?.let {
-      mGoogleMap?.let {map->
+      mGoogleMap?.let { map ->
         Timber.d("creating business Your Location marker")
         markerCurrLocation?.remove()
         val latLon = LatLng(it.lat!!.toDouble(), it.lon!!.toDouble())
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLon, 12f))
         markerCurrLocation = map.addMarker(
-          MarkerOptions()
-            .position(latLon)
-            .title("Your Location")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_you))
+            MarkerOptions()
+                .position(latLon)
+                .title("Your Location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin_you))
         )
         markerCurrLocation?.tag = "currLoc"
       }

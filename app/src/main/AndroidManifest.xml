@@ -30,7 +30,8 @@
         android:name="com.google.android.geo.API_KEY"
         android:value="${googleMapApiKey}" />
 
-    <activity android:name=".modules.MainActivity"
+    <activity
+        android:name=".modules.MainActivity"
         android:screenOrientation="portrait"
         tools:ignore="LockedOrientationActivity">
       <intent-filter>

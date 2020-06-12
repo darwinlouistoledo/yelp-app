@@ -8,20 +8,20 @@
   <fragment
       android:id="@+id/homeFragment"
       android:name="com.yelpbusiness.android.modules.home.HomeFragment"
-      tools:layout="@layout/fragment_home"/>
+      tools:layout="@layout/fragment_home" />
 
   <fragment
       android:id="@+id/searchFragment"
       android:name="com.yelpbusiness.android.modules.search.SearchInputFragment"
-      tools:layout="@layout/fragment_search_input"/>
+      tools:layout="@layout/fragment_search_input" />
 
   <fragment
       android:id="@+id/businessDetailsFragment"
       android:name="com.yelpbusiness.android.modules.business.BusinessDetailsFragment"
-      tools:layout="@layout/fragment_search_input"/>
+      tools:layout="@layout/fragment_search_input" />
 
   <fragment
       android:id="@+id/businessMapFragment"
       android:name="com.yelpbusiness.android.modules.map.BusinessesMapFragment"
-      tools:layout="@layout/fragment_business_map"/>
+      tools:layout="@layout/fragment_business_map" />
 </navigation>

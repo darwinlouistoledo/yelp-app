@@ -87,11 +87,11 @@ class HomeViewModel @Inject constructor(
   private val reducer: Reducer<State, Change> = { state, change ->
     when (change) {
       is Change.SetLoadingResult -> state.copy(
-        loadingResult = SingleEvent(change.result),
-        businessList = when (change.result) {
-          is LiveResult.Success -> change.result.value
-          else -> emptyList()
-        }
+          loadingResult = SingleEvent(change.result),
+          businessList = when (change.result) {
+            is LiveResult.Success -> change.result.value
+            else -> emptyList()
+          }
       )
       is Change.SetQueryData -> state.copy(queryData = change.queryData)
       is Change.SetError -> state.copy(error = SingleEvent(change.e))
@@ -102,60 +102,60 @@ class HomeViewModel @Inject constructor(
   init {
 
     val loadAction = Observable.mergeArray(
-      actions.ofType<Action.LoadBusinesses>()
-        .take(1)
-        .filter {
-          (it.latitude > 0f && it.longitude > 0f) &&
-            (it.latitude != observableState.value?.queryData?.lat &&
-              it.longitude != observableState.value?.queryData?.lon)
-        }
-        .map { LoadBusinessesQuery.LatLon(it.latitude, it.longitude) },
-      actions.ofType<Action.SetSearchFilters>()
-        .map { LoadBusinessesQuery.Filters(it.filters) },
-      actions.ofType<Action.SetSort>()
-        .map { LoadBusinessesQuery.Sort(it.sortBy) }
-    )
-      .distinctUntilChanged()
-      .scan(LoadBusinessesQueryData()) { prev, curr ->
-        when (curr) {
-          is LoadBusinessesQuery.LatLon -> prev.copy(lat = curr.lat, lon = curr.lon)
-          is LoadBusinessesQuery.Filters -> prev.copy(
-            term = when {
-              curr.values.first?.isNotEmpty() == true -> curr.values.first
-              else -> null
-            },
-            location = when {
-              curr.values.second?.isNotEmpty() == true -> curr.values.second
-              else -> null
-            },
-            categories = when {
-              curr.values.third?.isNotEmpty() == true -> curr.values.third
-              else -> null
+        actions.ofType<Action.LoadBusinesses>()
+            .take(1)
+            .filter {
+              (it.latitude > 0f && it.longitude > 0f) &&
+                  (it.latitude != observableState.value?.queryData?.lat &&
+                      it.longitude != observableState.value?.queryData?.lon)
             }
-          )
-          is LoadBusinessesQuery.Sort -> prev.copy(sort = curr.value)
-        }
-      }
-      .filter { (it.lat != null && it.lon != null) }
-      .distinctUntilChanged()
-      .switchMap {
-        loadBusinessesObs(it.term, it.location, it.categories, it.lat, it.lon, it.sort)
-          .startWith(
-            listOf(
-              Change.ClearList,
-              Change.SetLoadingResult(LiveResult.Loading),
-              Change.SetQueryData(it)
+            .map { LoadBusinessesQuery.LatLon(it.latitude, it.longitude) },
+        actions.ofType<Action.SetSearchFilters>()
+            .map { LoadBusinessesQuery.Filters(it.filters) },
+        actions.ofType<Action.SetSort>()
+            .map { LoadBusinessesQuery.Sort(it.sortBy) }
+    )
+        .distinctUntilChanged()
+        .scan(LoadBusinessesQueryData()) { prev, curr ->
+          when (curr) {
+            is LoadBusinessesQuery.LatLon -> prev.copy(lat = curr.lat, lon = curr.lon)
+            is LoadBusinessesQuery.Filters -> prev.copy(
+                term = when {
+                  curr.values.first?.isNotEmpty() == true -> curr.values.first
+                  else -> null
+                },
+                location = when {
+                  curr.values.second?.isNotEmpty() == true -> curr.values.second
+                  else -> null
+                },
+                categories = when {
+                  curr.values.third?.isNotEmpty() == true -> curr.values.third
+                  else -> null
+                }
             )
-          )
-      }
+            is LoadBusinessesQuery.Sort -> prev.copy(sort = curr.value)
+          }
+        }
+        .filter { (it.lat != null && it.lon != null) }
+        .distinctUntilChanged()
+        .switchMap {
+          loadBusinessesObs(it.term, it.location, it.categories, it.lat, it.lon, it.sort)
+              .startWith(
+                  listOf(
+                      Change.ClearList,
+                      Change.SetLoadingResult(LiveResult.Loading),
+                      Change.SetQueryData(it)
+                  )
+              )
+        }
 
     val states = Observable.mergeArray(
-      Observable.just(Change.SetLoadingResult(LiveResult.Loading)),
-      loadAction
+        Observable.just(Change.SetLoadingResult(LiveResult.Loading)),
+        loadAction
     )
-      .onErrorReturn { Change.SetError(it) }
-      .scan(initialState, reducer)
-      .distinctUntilChanged()
+        .onErrorReturn { Change.SetError(it) }
+        .scan(initialState, reducer)
+        .distinctUntilChanged()
 
     subscribe(states)
   }
@@ -169,25 +169,25 @@ class HomeViewModel @Inject constructor(
     sortBy: String?
   ): Observable<Change> =
     businessUseCase.getBusinesses(
-      term = term,
-      location = location,
-      categories = categories,
-      lat = latitude,
-      lon = longitude,
-      sort = when {
-        sortBy != null && sortBy.equals(BusinessSort.DISTANCE.name, true) -> BusinessSort.DISTANCE
-        sortBy != null && sortBy.equals(BusinessSort.RATING.name, true) -> BusinessSort.RATING
-        else -> null
-      },
-      clearCache = true
+        term = term,
+        location = location,
+        categories = categories,
+        lat = latitude,
+        lon = longitude,
+        sort = when {
+          sortBy != null && sortBy.equals(BusinessSort.DISTANCE.name, true) -> BusinessSort.DISTANCE
+          sortBy != null && sortBy.equals(BusinessSort.RATING.name, true) -> BusinessSort.RATING
+          else -> null
+        },
+        clearCache = true
     )
-      .map<Change> {
-        when (it) {
-          is DataResult.Success -> Change.SetLoadingResult(LiveResult.Success(it.value))
-          is DataResult.Failed -> Change.SetLoadingResult(LiveResult.Failed(it.error))
+        .map<Change> {
+          when (it) {
+            is DataResult.Success -> Change.SetLoadingResult(LiveResult.Success(it.value))
+            is DataResult.Failed -> Change.SetLoadingResult(LiveResult.Failed(it.error))
+          }
         }
-      }
-      .onErrorReturn { Change.SetError(it) }
-      .subscribeOn(schedulerProvider.io())
-      .observeOn(schedulerProvider.ui())
+        .onErrorReturn { Change.SetError(it) }
+        .subscribeOn(schedulerProvider.io())
+        .observeOn(schedulerProvider.ui())
 }

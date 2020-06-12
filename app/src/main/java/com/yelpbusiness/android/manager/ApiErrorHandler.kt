@@ -23,10 +23,10 @@ class ApiErrorHandler(private val gson: Gson) : ErrorHandler<Fragment> {
     val response = httpException.response()
     try {
       val responseBody = response?.errorBody()
-        ?.string()
+          ?.string()
       val simpleApiResponse = gson.fromJson(responseBody, ErrorResponse::class.java)
       fragment.requireContext()
-        .showToast(simpleApiResponse.message ?: "An API Error has occurred")
+          .showToast(simpleApiResponse.message ?: "An API Error has occurred")
     } catch (e: IOException) {
       e.printStackTrace()
     } catch (e: JsonSyntaxException) {

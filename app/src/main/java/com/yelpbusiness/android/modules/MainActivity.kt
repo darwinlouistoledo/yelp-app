@@ -1,14 +1,16 @@
 package com.yelpbusiness.android.modules
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.yelpbusiness.android.R
 import com.yelpbusiness.android.databinding.ActivityMainBinding
 import com.yelpbusiness.common_android.ext.databinding.withBinding
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : DaggerAppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityMainBinding
   private lateinit var navController: NavController

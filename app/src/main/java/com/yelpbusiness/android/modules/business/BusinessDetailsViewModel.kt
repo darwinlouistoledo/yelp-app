@@ -37,7 +37,7 @@ class BusinessDetailsViewModel @Inject constructor(
   sealed class Change : MviChange {
     data class BusinessData(val business: Business) : Change()
     data class Error(val throwable: Throwable) : Change()
-    object ShowLoading: Change()
+    object ShowLoading : Change()
   }
 
   /**
@@ -49,8 +49,8 @@ class BusinessDetailsViewModel @Inject constructor(
     val showLoading: Boolean = false,
     val error: SingleEvent<Throwable>? = null
   ) : MviState {
-    val schedules = business?.hours?.firstOrNull()?.schedule?: emptyList()
-    val isOpenNow = business?.hours?.firstOrNull()?.isOpenNow?:false
+    val schedules = business?.hours?.firstOrNull()?.schedule ?: emptyList()
+    val isOpenNow = business?.hours?.firstOrNull()?.isOpenNow ?: false
   }
 
   override val initialState: State
@@ -66,14 +66,14 @@ class BusinessDetailsViewModel @Inject constructor(
 
   init {
     val loadBusinessDataAction = actions.ofType<Action.LoadBusinessData>()
-      .switchMap { loadBusinessObs(it.businessId) }
+        .switchMap { loadBusinessObs(it.businessId) }
 
     val states = Observable.mergeArray(
-      loadBusinessDataAction
+        loadBusinessDataAction
     )
-      .onErrorReturn { Change.Error(it) }
-      .scan(initialState, reducer)
-      .distinctUntilChanged()
+        .onErrorReturn { Change.Error(it) }
+        .scan(initialState, reducer)
+        .distinctUntilChanged()
 
     subscribe(states)
   }
@@ -82,15 +82,15 @@ class BusinessDetailsViewModel @Inject constructor(
     id: String
   ): Observable<Change> =
     businessUseCase.getBusiness(id)
-      .map {
-        when (it) {
-          is DataResult.Success -> Change.BusinessData(it.value)
-          is DataResult.Failed -> Change.Error(it.error)
+        .map {
+          when (it) {
+            is DataResult.Success -> Change.BusinessData(it.value)
+            is DataResult.Failed -> Change.Error(it.error)
+          }
         }
-      }
-      .startWith(Change.ShowLoading)
-      .onErrorReturn { Change.Error(it) }
-      .subscribeOn(schedulerProvider.io())
-      .observeOn(schedulerProvider.ui())
+        .startWith(Change.ShowLoading)
+        .onErrorReturn { Change.Error(it) }
+        .subscribeOn(schedulerProvider.io())
+        .observeOn(schedulerProvider.ui())
 
 }

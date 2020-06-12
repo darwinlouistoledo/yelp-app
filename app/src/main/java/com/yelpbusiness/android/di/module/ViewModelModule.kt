@@ -8,9 +8,13 @@ import com.yelpbusiness.android.modules.map.BusinessesMapViewModel
 import com.yelpbusiness.android.modules.search.SearchInputManagerViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.FragmentComponent
 import dagger.multibindings.IntoMap
 
 @Module
+@InstallIn(ActivityComponent::class, FragmentComponent::class)
 abstract class ViewModelModule {
 
   @Binds

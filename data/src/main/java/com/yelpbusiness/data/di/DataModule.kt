@@ -18,12 +18,16 @@ import com.yelpbusiness.domain.usecase.AppInitializationUseCase
 import com.yelpbusiness.domain.usecase.BusinessUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class DataModule {
 
   @Provides

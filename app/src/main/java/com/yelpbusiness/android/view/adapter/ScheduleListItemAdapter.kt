@@ -8,10 +8,10 @@ import com.yelpbusiness.domain.enums.ScheduleDay
 import com.yelpbusiness.domain.model.Schedule
 
 class ScheduleListItemAdapter :
-  SimpleListAdapter<ViewholderItemScheduleBinding, Schedule>(
-    R.layout.viewholder_item_schedule,
-    ScheduleAdapterDiffCallback
-  ) {
+    SimpleListAdapter<ViewholderItemScheduleBinding, Schedule>(
+        R.layout.viewholder_item_schedule,
+        ScheduleAdapterDiffCallback
+    ) {
 
   override fun bind(
     holder: ViewHolder<ViewholderItemScheduleBinding>,
@@ -21,9 +21,11 @@ class ScheduleListItemAdapter :
     val context = holder.itemView.context
 
     holder.binding.apply {
-      tvDay.text = ScheduleDay.values().toList().first { it.value == item.day }.display
+      tvDay.text = ScheduleDay.values()
+          .toList()
+          .first { it.value == item.day }.display
 
-      val overnight = when(item.isOvernight){
+      val overnight = when (item.isOvernight) {
         true -> context.getString(R.string.lbl_yes)
         else -> context.getString(R.string.lbl_no)
       }

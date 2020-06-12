@@ -1,16 +1,16 @@
 package com.yelpbusiness.android
 
+import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.yelpbusiness.android.di.DaggerApplicationComponent
 import com.yelpbusiness.common_android.di.qualifiers.DebugTree
 import com.yelpbusiness.domain.usecase.AppInitializationUseCase
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import dagger.hilt.android.HiltAndroidApp
 import rx_activity_result2.RxActivityResult
 import timber.log.Timber
 import javax.inject.Inject
 
-class YelpApplication : DaggerApplication() {
+@HiltAndroidApp
+class YelpApplication : Application() {
 
   @Inject
   lateinit var appInitializationUseCase: AppInitializationUseCase
@@ -20,10 +20,6 @@ class YelpApplication : DaggerApplication() {
 
   @field:[Inject DebugTree]
   lateinit var debugTree: Timber.Tree
-
-  override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-    DaggerApplicationComponent.factory()
-      .create(this)
 
   override fun onCreate() {
     super.onCreate()
@@ -35,7 +31,7 @@ class YelpApplication : DaggerApplication() {
     appInitializationUseCase.init()
 
     ProcessLifecycleOwner.get()
-      .lifecycle.addObserver(lifecycleListener)
+        .lifecycle.addObserver(lifecycleListener)
 
   }
 

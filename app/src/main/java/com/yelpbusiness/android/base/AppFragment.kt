@@ -8,11 +8,10 @@ import com.github.ybq.android.spinkit.SpinKitView
 import com.yelpbusiness.android.R
 import com.yelpbusiness.android.di.factory.ViewModelFactory
 import com.yelpbusiness.domain.manager.ErrorHandler
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class AppFragment : DaggerFragment() {
+abstract class AppFragment : Fragment() {
 
   @Inject
   lateinit var viewModelFactory: ViewModelFactory
@@ -29,16 +28,16 @@ abstract class AppFragment : DaggerFragment() {
     disposeBag.dispose()
   }
 
-  fun showProgressDialog(title: String?=null) {
+  fun showProgressDialog(title: String? = null) {
     if (progressDialog == null) {
       progressDialog = MaterialDialog(requireContext()).show {
         title?.let {
           title(text = it)
         }
         customView(
-          view = SpinKitView(context, null, 0, R.style.spinkit_basic).apply {
-            setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-          }
+            view = SpinKitView(context, null, 0, R.style.spinkit_basic).apply {
+              setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            }
         )
         cancelable(false)
         cancelOnTouchOutside(false)

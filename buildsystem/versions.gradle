@@ -56,10 +56,6 @@ ext {
   rxlocation_lib = '2.1@aar'
   rx_activity_result = '0.5.0-2.x'
 
-  dagger_version = '2.22.1'
-  assist_inject_version = '0.5.0'
-  dagger_mock = '0.8.5'
-
   glide_version = '4.11.0'
   timber_version = '4.7.0'
 

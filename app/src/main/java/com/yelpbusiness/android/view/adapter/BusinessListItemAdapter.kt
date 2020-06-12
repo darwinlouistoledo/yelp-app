@@ -10,10 +10,10 @@ import com.yelpbusiness.domain.model.Business
 class BusinessListItemAdapter(
   private val onViewBusinessDetails: ((item: Business) -> Unit)
 ) :
-  SimpleListAdapter<ViewholderItemBusinessFeedBinding, Business>(
-    R.layout.viewholder_item_business_feed,
-    BusinessAdapterDiffCallback
-  ) {
+    SimpleListAdapter<ViewholderItemBusinessFeedBinding, Business>(
+        R.layout.viewholder_item_business_feed,
+        BusinessAdapterDiffCallback
+    ) {
 
   private var isBySearchLocation = false
 
@@ -31,18 +31,24 @@ class BusinessListItemAdapter(
     holder.binding.apply {
       tvName.text = data.name
       tvAddress.text = data.addressToDisplay
-      tvDistance.text = when(isBySearchLocation){
-        true-> context.getString(R.string.lbl_meters_away_from_searched, data.roundedDistance.toString())
-        else-> context.getString(R.string.lbl_meters_away_from_you, data.roundedDistance.toString())
+      tvDistance.text = when (isBySearchLocation) {
+        true -> context.getString(
+            R.string.lbl_meters_away_from_searched, data.roundedDistance.toString()
+        )
+        else -> context.getString(
+            R.string.lbl_meters_away_from_you, data.roundedDistance.toString()
+        )
       }
 
-      tvRateValue.text = context.resources.getQuantityString(R.plurals.lbl_review_count, data.reviewCountDisplay, data.reviewCountDisplay)
+      tvRateValue.text = context.resources.getQuantityString(
+          R.plurals.lbl_review_count, data.reviewCountDisplay, data.reviewCountDisplay
+      )
       ratingBar.rating = data.rating ?: 0f
 
       Glide.with(holder.itemView.context)
-        .load(data.primaryImgUrl)
-        .placeholder(R.drawable.img_placeholder_blurred)
-        .into(ivPhoto)
+          .load(data.primaryImgUrl)
+          .placeholder(R.drawable.img_placeholder_blurred)
+          .into(ivPhoto)
 
     }
   }

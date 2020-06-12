@@ -6,13 +6,17 @@ import androidx.lifecycle.ViewModel
 import com.yelpbusiness.domain.common.SingleEvent
 import javax.inject.Inject
 
-class SearchInputManagerViewModel @Inject constructor(): ViewModel(){
+class SearchInputManagerViewModel @Inject constructor() : ViewModel() {
 
-  private val _searchFilters = MutableLiveData<SingleEvent<Triple<String?,String?,String?>>>()
+  private val _searchFilters = MutableLiveData<SingleEvent<Triple<String?, String?, String?>>>()
 
-  val searchFilters: LiveData<SingleEvent<Triple<String?,String?,String?>>> = _searchFilters
+  val searchFilters: LiveData<SingleEvent<Triple<String?, String?, String?>>> = _searchFilters
 
-  fun applySearchFilters(term: String?, location:String?, categories: String?)=
+  fun applySearchFilters(
+    term: String?,
+    location: String?,
+    categories: String?
+  ) =
     _searchFilters.postValue(SingleEvent(Triple(term, location, categories)))
 
 }

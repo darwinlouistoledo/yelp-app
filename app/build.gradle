@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "kotlin-allopen"
 apply plugin: "androidx.navigation.safeargs"
 apply from: 'dependencies.gradle'
+apply plugin: 'dagger.hilt.android.plugin'
 
 allOpen {
   annotation("com.yelpbusiness.android.AllOpen")
