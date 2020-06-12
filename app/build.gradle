@@ -23,16 +23,14 @@ android {
 
     multiDexEnabled true
 
-    dataBinding {
-      enabled = true
-    }
-    viewBinding {
-      enabled = true
-    }
-
     vectorDrawables.useSupportLibrary = true
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildFeatures {
+    dataBinding = true
+    viewBinding = true
   }
 
   buildTypes {

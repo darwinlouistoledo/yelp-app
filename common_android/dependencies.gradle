@@ -66,7 +66,10 @@ ext {
       [configuration: "kapt", dependency: "com.squareup.inject:assisted-inject-processor-dagger2:$assist_inject_version"],
 
       // gson
-      [configuration: "implementation", dependency: "com.google.code.gson:gson:$gson_version"]
+      [configuration: "implementation", dependency: "com.google.code.gson:gson:$gson_version"],
+
+      [configuration: "implementation", dependency: "com.google.dagger:hilt-android:$hilt_di"],
+      [configuration: "kapt", dependency: "com.google.dagger:hilt-android-compiler:$hilt_di"]
 
   ]
 }
