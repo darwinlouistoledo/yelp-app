@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
+apply plugin: 'kotlin-parcelize'
 apply from: 'dependencies.gradle'
 
 android {
@@ -33,11 +33,6 @@ android {
 
 }
 
-androidExtensions {
-    experimental = true
-    features = ["parcelize"]
-}
-
 dependencies {
     dataDependencies.each {
         add(it.configuration, it.dependency, it.options)
@@ -58,3 +53,4 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:$realm_version"
     }
 }
+

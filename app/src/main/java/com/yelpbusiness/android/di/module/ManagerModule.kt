@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.yelpbusiness.android.R
 import com.yelpbusiness.android.manager.ApiErrorHandler
+import com.yelpbusiness.android.manager.AppDispatcherProvider
 import com.yelpbusiness.android.manager.AppSchedulerProvider
 import com.yelpbusiness.common_android.di.qualifiers.DebugTree
 import com.yelpbusiness.common_android.util.location.LocationManager
@@ -15,6 +16,7 @@ import com.yelpbusiness.data.errorhandler.MultiErrorHandler
 import com.yelpbusiness.data.manager.RealmLocalCacheManager
 import com.yelpbusiness.data.manager.RepositoryCachePrefsImpl
 import com.yelpbusiness.domain.base.RepositoryCachePrefs
+import com.yelpbusiness.domain.coroutines.DispatcherProvider
 import com.yelpbusiness.domain.manager.ErrorHandler
 import com.yelpbusiness.domain.manager.LocalCacheManager
 import com.yelpbusiness.domain.rx.SchedulerProvider
@@ -34,6 +36,11 @@ class ManagerModule {
   @Singleton
   fun providesSchedulerProvider(): SchedulerProvider =
     AppSchedulerProvider()
+
+  @Provides
+  @Singleton
+  fun providesDispatcherProvider(): DispatcherProvider =
+    AppDispatcherProvider()
 
   @Singleton
   @Provides

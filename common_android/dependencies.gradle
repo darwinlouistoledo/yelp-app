@@ -2,65 +2,67 @@ ext {
 
   commonAndroidDependencies = [
 
-      [configuration: "implementation", dependency: fileTree(dir: 'libs', include: ['*.jar'])],
-      [configuration: "implementation", dependency: project(':domain')],
+    [configuration: "implementation", dependency: fileTree(dir: 'libs', include: ['*.jar'])],
+    [configuration: "implementation", dependency: project(':domain')],
 
-      [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"],
+    [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"],
+    [configuration: "implementation", dependency: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_couritines_version"],
 
-      [configuration: "implementation", dependency: "androidx.appcompat:appcompat:$androidx_version_appcompat"],
-      [configuration: "implementation", dependency: "androidx.core:core-ktx:$androidx_version_core"],
-      [configuration: "implementation", dependency: "com.google.android.material:material:$material_version"],
-      [configuration: "implementation", dependency: "androidx.constraintlayout:constraintlayout:$constraint_layout_version"],
-      [configuration: "implementation", dependency: "androidx.swiperefreshlayout:swiperefreshlayout:$androidx_version"],
+    [configuration: "implementation", dependency: "androidx.appcompat:appcompat:$androidx_version_appcompat"],
+    [configuration: "implementation", dependency: "androidx.core:core-ktx:$androidx_version_core"],
+    [configuration: "implementation", dependency: "com.google.android.material:material:$material_version"],
+    [configuration: "implementation", dependency: "androidx.constraintlayout:constraintlayout:$constraint_layout_version"],
+    [configuration: "implementation", dependency: "androidx.swiperefreshlayout:swiperefreshlayout:$androidx_version"],
 
-      // Navigation
-      [configuration: "implementation", dependency: "androidx.navigation:navigation-fragment-ktx:$navigation_version"],
-      [configuration: "implementation", dependency: "androidx.navigation:navigation-ui-ktx:$navigation_version"],
+    // Navigation
+    [configuration: "implementation", dependency: "androidx.navigation:navigation-fragment-ktx:$navigation_version"],
+    [configuration: "implementation", dependency: "androidx.navigation:navigation-ui-ktx:$navigation_version"],
 
-      // ViewModel and LiveData
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"],
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"],
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"],
-      [configuration: "kapt", dependency: "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"],
-      [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_version"],
+    // ViewModel and LiveData
+    [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"],
+    [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"],
+    [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"],
+    [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"],
+    [configuration: "kapt", dependency: "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"],
+    [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_version"],
 
-      // android test
-      [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],
-      [configuration: "androidTestImplementation", dependency: "androidx.test:runner:$test_runner"],
-      [configuration: "androidTestImplementation", dependency: "androidx.test:rules:$test_rule"],
-      [configuration: "androidTestImplementation", dependency: "androidx.test.espresso:espresso-core:$espresso_version"],
+    // android test
+    [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],
+    [configuration: "androidTestImplementation", dependency: "androidx.test:runner:$test_runner"],
+    [configuration: "androidTestImplementation", dependency: "androidx.test:rules:$test_rule"],
+    [configuration: "androidTestImplementation", dependency: "androidx.test.espresso:espresso-core:$espresso_version"],
 
-      // googleplay services
-      [configuration: "implementation", dependency: "com.google.android.gms:play-services-location:$play_services_version"],
+    // googleplay services
+    [configuration: "implementation", dependency: "com.google.android.gms:play-services-location:$play_services_version"],
 
-      // Glide
-      [configuration: "implementation", dependency: "com.github.bumptech.glide:glide:$glide_version", options: {
-        transitive = true
-      }],
-      [configuration: "kapt", dependency: "com.github.bumptech.glide:compiler:$glide_version"],
+    // Glide
+    [configuration: "implementation", dependency: "com.github.bumptech.glide:glide:$glide_version", options: {
+      transitive = true
+    }],
+    [configuration: "kapt", dependency: "com.github.bumptech.glide:compiler:$glide_version"],
 
-      // Timber Logging
-      [configuration: "implementation", dependency: "com.jakewharton.timber:timber:$timber_version"],
+    // Timber Logging
+    [configuration: "implementation", dependency: "com.jakewharton.timber:timber:$timber_version"],
 
-      // rxjava
-      [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxandroid:$rxandroid_version"],
-      [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"],
-      [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxjava:$rxjava_version"],
-      [configuration: "implementation", dependency: "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_kotlin"],
-      [configuration: "implementation", dependency: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding_kotlin"],
-      [configuration: "implementation", dependency: "com.github.tbruyelle:rxpermissions:$rxpermissions"],
-      [configuration: "implementation", dependency: "pl.charmas.android:android-reactive-location2:$rxlocation_lib"],
-      [configuration: "implementation", dependency: "com.github.VictorAlbertos:RxActivityResult:$rx_activity_result"],
+    // rxjava
+    [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxandroid:$rxandroid_version"],
+    [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"],
+    [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxjava:$rxjava_version"],
+    [configuration: "implementation", dependency: "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_kotlin"],
+    [configuration: "implementation", dependency: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding_kotlin"],
+    [configuration: "implementation", dependency: "com.github.tbruyelle:rxpermissions:$rxpermissions"],
+    [configuration: "implementation", dependency: "pl.charmas.android:android-reactive-location2:$rxlocation_lib"],
+    [configuration: "implementation", dependency: "com.github.VictorAlbertos:RxActivityResult:$rx_activity_result"],
 
-      // Material Dialog
-      [configuration: "implementation", dependency: "com.afollestad.material-dialogs:core:$material_dialog"],
+    // Material Dialog
+    [configuration: "implementation", dependency: "com.afollestad.material-dialogs:core:$material_dialog"],
 
-      // gson
-      [configuration: "implementation", dependency: "com.google.code.gson:gson:$gson_version"],
+    // gson
+    [configuration: "implementation", dependency: "com.google.code.gson:gson:$gson_version"],
 
-      // HILT DI
-      [configuration: "implementation", dependency: "com.google.dagger:hilt-android:$hilt_di"],
-      [configuration: "kapt", dependency: "com.google.dagger:hilt-android-compiler:$hilt_di"]
+    // HILT DI
+    [configuration: "implementation", dependency: "com.google.dagger:hilt-android:$hilt_di"],
+    [configuration: "kapt", dependency: "com.google.dagger:hilt-android-compiler:$hilt_di"]
 
   ]
 }

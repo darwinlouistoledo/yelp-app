@@ -1,24 +1,22 @@
 package com.yelpbusiness.android.modules.business
 
+import androidx.lifecycle.viewModelScope
 import com.yelpbusiness.android.modules.business.BusinessDetailsViewModel.Action
 import com.yelpbusiness.android.modules.business.BusinessDetailsViewModel.State
-import com.yelpbusiness.common_android.base.mvi.MviAction
-import com.yelpbusiness.common_android.base.mvi.MviChange
-import com.yelpbusiness.common_android.base.mvi.MviState
-import com.yelpbusiness.common_android.base.mvi.MviViewModel
-import com.yelpbusiness.common_android.base.mvi.Reducer
+import com.yelpbusiness.common_android.base.mvi_coroutines.MviAction
+import com.yelpbusiness.common_android.base.mvi_coroutines.MviState
+import com.yelpbusiness.common_android.base.mvi_coroutines.MviViewModel
 import com.yelpbusiness.domain.common.SingleEvent
+import com.yelpbusiness.domain.coroutines.DispatcherProvider
 import com.yelpbusiness.domain.model.Business
-import com.yelpbusiness.domain.rx.SchedulerProvider
 import com.yelpbusiness.domain.sealedclass.DataResult
 import com.yelpbusiness.domain.usecase.BusinessUseCase
-import io.reactivex.Observable
-import io.reactivex.rxkotlin.ofType
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BusinessDetailsViewModel @Inject constructor(
   private val businessUseCase: BusinessUseCase,
-  private val schedulerProvider: SchedulerProvider
+  private val dispatcherProvider: DispatcherProvider
 ) : MviViewModel<Action, State>() {
 
   /**
@@ -27,17 +25,6 @@ class BusinessDetailsViewModel @Inject constructor(
    */
   sealed class Action : MviAction {
     data class LoadBusinessData(val businessId: String) : Action()
-  }
-
-  /**
-   * These are the changes that will be
-   * invoked once the process has been finish and
-   * will update the state
-   */
-  sealed class Change : MviChange {
-    data class BusinessData(val business: Business) : Change()
-    data class Error(val throwable: Throwable) : Change()
-    object ShowLoading : Change()
   }
 
   /**
@@ -56,41 +43,30 @@ class BusinessDetailsViewModel @Inject constructor(
   override val initialState: State
     get() = State()
 
-  private val reducer: Reducer<State, Change> = { state, change ->
-    when (change) {
-      is Change.BusinessData -> state.copy(business = change.business, showLoading = false)
-      is Change.Error -> state.copy(error = SingleEvent(change.throwable), showLoading = false)
-      Change.ShowLoading -> state.copy(showLoading = true)
+  override fun handleAction(action: Action) {
+    when (action) {
+      is Action.LoadBusinessData -> loadBusinessObs(action.businessId)
     }
-  }
-
-  init {
-    val loadBusinessDataAction = actions.ofType<Action.LoadBusinessData>()
-        .switchMap { loadBusinessObs(it.businessId) }
-
-    val states = Observable.mergeArray(
-        loadBusinessDataAction
-    )
-        .onErrorReturn { Change.Error(it) }
-        .scan(initialState, reducer)
-        .distinctUntilChanged()
-
-    subscribe(states)
   }
 
   private fun loadBusinessObs(
     id: String
-  ): Observable<Change> =
-    businessUseCase.getBusiness(id)
-        .map {
-          when (it) {
-            is DataResult.Success -> Change.BusinessData(it.value)
-            is DataResult.Failed -> Change.Error(it.error)
-          }
+  ) {
+    viewModelScope.launch(dispatcherProvider.io()) {
+      updateState { copy(showLoading = true) }
+      val result =
+        businessUseCase.getBusiness(id)
+            .blockingLast()
+
+      when (result) {
+        is DataResult.Success -> updateState { copy(business = result.value, showLoading = false) }
+        is DataResult.Failed -> updateState {
+          copy(
+              error = SingleEvent(result.error), showLoading = false
+          )
         }
-        .startWith(Change.ShowLoading)
-        .onErrorReturn { Change.Error(it) }
-        .subscribeOn(schedulerProvider.io())
-        .observeOn(schedulerProvider.ui())
+      }
+    }
+  }
 
 }

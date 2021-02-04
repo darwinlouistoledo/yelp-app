@@ -16,6 +16,7 @@ import com.yelpbusiness.android.databinding.FragmentBusinessDetailsBinding
 import com.yelpbusiness.android.modules.business.BusinessDetailsViewModel.Action
 import com.yelpbusiness.android.modules.business.BusinessDetailsViewModel.State
 import com.yelpbusiness.android.view.adapter.ScheduleListItemAdapter
+import com.yelpbusiness.common_android.base.mvi_coroutines.MviView
 import com.yelpbusiness.common_android.ext.aac.observe
 import com.yelpbusiness.common_android.ext.aac.withViewModel
 import com.yelpbusiness.common_android.ext.component.onBackPressed
@@ -26,7 +27,7 @@ import com.yelpbusiness.domain.model.Category
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BusinessDetailsFragment : AppFragment() {
+class BusinessDetailsFragment : AppFragment(), MviView<State> {
 
   companion object {
     fun generateArgs(
@@ -85,11 +86,11 @@ class BusinessDetailsFragment : AppFragment() {
     }
   }
 
-  private fun render(state: State) {
+  override fun render(state: State) {
 
     binding.apply {
       detailsContainer.makeVisibleOrGone(state.business != null)
-      spinKit.makeVisibleOrGone(state.business == null)
+      spinKit.makeVisibleOrGone(state.business == null && state.showLoading)
 
       state.business?.let { b ->
 

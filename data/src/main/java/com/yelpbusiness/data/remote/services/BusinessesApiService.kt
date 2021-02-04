@@ -3,6 +3,7 @@ package com.yelpbusiness.data.remote.services
 import com.yelpbusiness.data.remote.model.BusinessRepo
 import com.yelpbusiness.data.remote.response.BusinessListResponse
 import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -24,5 +25,10 @@ interface BusinessesApiService {
   fun getBusiness(
     @Path("id") id: String
   ): Single<BusinessRepo>
+
+  @GET("v3/businesses/{id}")
+  fun getBusiness2(
+    @Path("id") id: String
+  ): Deferred<BusinessRepo>
 
 }

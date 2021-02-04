@@ -1,0 +1,3 @@
+package com.yelpbusiness.common_android.base.mvi_coroutines
+
+interface MviAction

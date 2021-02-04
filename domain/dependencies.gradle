@@ -1,14 +1,14 @@
 ext {
 
   domainDependencies = [
-      [configuration: "implementation", dependency: fileTree(dir: 'libs', include: ['*.jar'])],
-      [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"],
+    [configuration: "implementation", dependency: fileTree(dir: 'libs', include: ['*.jar'])],
+    [configuration: "implementation", dependency: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"],
+    [configuration: "implementation", dependency: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_couritines_version"],
 
-      // rxjava
-      [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"],
-      [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxjava:$rxjava_version"],
+    // rxjava
+    [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"],
+    [configuration: "implementation", dependency: "io.reactivex.rxjava2:rxjava:$rxjava_version"],
 
-      [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],
+    [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],
   ]
-
 }
