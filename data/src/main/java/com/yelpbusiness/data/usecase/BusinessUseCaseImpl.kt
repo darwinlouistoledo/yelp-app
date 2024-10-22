@@ -1,6 +1,6 @@
 package com.yelpbusiness.data.usecase
 
-import com.yelpbusiness.domain.base.Repository
+import com.yelpbusiness.domain.base.RemoteSource
 import com.yelpbusiness.domain.enums.BusinessSort
 import com.yelpbusiness.domain.exceptions.RequiredArgumentException
 import com.yelpbusiness.domain.keys.BusinessListKey
@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 class BusinessUseCaseImpl @Inject constructor(
   private val localCacheManager: LocalCacheManager,
-  private val businessListRepository: Repository<BusinessListKey, List<Business>>,
-  private val businessRepository: Repository<String, Business>
+  private val businessListRepository: RemoteSource<BusinessListKey, List<Business>>,
+  private val businessRepository: RemoteSource<String, Business>
 ) : BusinessUseCase {
 
   /**
@@ -35,7 +35,7 @@ class BusinessUseCaseImpl @Inject constructor(
         true -> localCacheManager.deleteAll()
           .toObservable()
           .switchMap {
-            businessListRepository.get(
+            businessListRepository.fetch(
               BusinessListKey(
                 term = term,
                 location = location,
@@ -44,11 +44,11 @@ class BusinessUseCaseImpl @Inject constructor(
                 lon = lon.takeIf { location == null },
                 sortBy = sort
               )
-            )
+            ).toObservable()
           }
           .map<DataResult<List<Business>>> { DataResult.Success(it) }
           .onErrorReturn { DataResult.Failed(it) }
-        else -> businessListRepository.get(
+        else -> businessListRepository.fetch(
           BusinessListKey(
             term = term,
             location = location,
@@ -57,7 +57,7 @@ class BusinessUseCaseImpl @Inject constructor(
             lon = lon.takeIf { location == null },
             sortBy = sort
           )
-        )
+        ).toObservable()
           .map<DataResult<List<Business>>> { DataResult.Success(it) }
           .onErrorReturn { DataResult.Failed(it) }
       }
@@ -70,7 +70,7 @@ class BusinessUseCaseImpl @Inject constructor(
    *
    */
   override fun getBusiness(id: String): Observable<DataResult<Business>> =
-    businessRepository.refresh(id)
+    businessRepository.fetch(id)
       .toObservable()
       .map<DataResult<Business>> { DataResult.Success(it) }
       .onErrorReturn { DataResult.Failed(it) }

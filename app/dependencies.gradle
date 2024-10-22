@@ -12,9 +12,9 @@ ext {
       [configuration: "implementation", dependency: "androidx.core:core:$androidx_version_core"],
       [configuration: "implementation", dependency: "androidx.core:core-ktx:$androidx_version_core"],
       [configuration: "implementation", dependency: "androidx.appcompat:appcompat:$androidx_version_appcompat"],
-      [configuration: "implementation", dependency: "androidx.recyclerview:recyclerview:$androidx_version"],
-      [configuration: "implementation", dependency: "androidx.cardview:cardview:$androidx_version"],
-      [configuration: "implementation", dependency: "androidx.browser:browser:$androidx_version"],
+      [configuration: "implementation", dependency: "androidx.recyclerview:recyclerview:$androidx_version_recyclerview"],
+      [configuration: "implementation", dependency: "androidx.cardview:cardview:$androidx_version_cardview"],
+      [configuration: "implementation", dependency: "androidx.browser:browser:$androidx_version_browser"],
       [configuration: "implementation", dependency: "com.google.android.material:material:$material_version"],
       [configuration: "implementation", dependency: "androidx.legacy:legacy-support-v4:$androidx_version"],
       [configuration: "implementation", dependency: "androidx.palette:palette:$androidx_version"],
@@ -55,12 +55,11 @@ ext {
 
 
       // ViewModel and LiveData
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"],
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"],
+      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_ext_version"],
       [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"],
       [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"],
       [configuration: "kapt", dependency: "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"],
-      [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_version"],
+      [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_core_version"],
 
       // Retrofit2
       [configuration: "implementation", dependency: "com.squareup.retrofit2:retrofit:$retrofit2_version"],
@@ -115,13 +114,13 @@ ext {
       [configuration: "implementation", dependency: "me.relex:circleindicator:$circle_indicator"],
 
       // databinding
-      [configuration: "kapt", dependency: "com.android.databinding:compiler:$data_binding_compiler"],
+      //[configuration: "kapt", dependency: "com.android.databinding:compiler:$data_binding_compiler"],
 
       //REALM DB
-      [configuration: "api", dependency: "io.realm:realm-annotations:$realm_version"],
+      /*[configuration: "api", dependency: "io.realm:realm-annotations:$realm_version"],
       [configuration: "api", dependency: "io.realm:realm-android-library:$realm_version"],
       [configuration: "api", dependency: "io.realm:realm-android-kotlin-extensions:$realm_version"],
-      [configuration: "kapt", dependency: "io.realm:realm-annotations-processor:$realm_version"],
+      [configuration: "kapt", dependency: "io.realm:realm-annotations-processor:$realm_version"],*/
 
       [configuration: "implementation", dependency: "me.zhanghai.android.materialratingbar:library:$rating_bar"]
 

@@ -160,6 +160,8 @@ class HomeFragment : AppFragment() {
               )
             )
           }
+
+          else -> {}
         }
       }
       .addTo(disposeBag)

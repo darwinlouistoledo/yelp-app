@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "kotlin-allopen"
 apply plugin: "androidx.navigation.safeargs"
@@ -11,8 +10,8 @@ allOpen {
 }
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  namespace "com.yelpbusiness.android"
+  compileSdk rootProject.ext.compileSdkVersion
 
   defaultConfig {
     applicationId "com.yelpbusiness.android"
@@ -65,18 +64,17 @@ android {
     }
   }
 
-  dexOptions {
-    javaMaxHeapSize "4g"
-    preDexLibraries true
-    dexInProcess = true
-  }
-
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_21
+    targetCompatibility JavaVersion.VERSION_21
   }
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = JavaVersion.VERSION_21
+  }
+
+  buildFeatures {
+    viewBinding true
+    buildConfig true
   }
 }
 

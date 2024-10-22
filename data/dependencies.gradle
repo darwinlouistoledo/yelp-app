@@ -46,9 +46,9 @@ ext {
       [configuration: "kapt", dependency: "com.squareup.inject:assisted-inject-processor-dagger2:$assist_inject_version"],
 
       //RealmDB
-      [configuration: "api", dependency: "io.realm:realm-annotations:$realm_version"],
+      /*[configuration: "api", dependency: "io.realm:realm-annotations:$realm_version"],
       [configuration: "api", dependency: "io.realm:realm-android-library:$realm_version"],
       [configuration: "api", dependency: "io.realm:realm-android-kotlin-extensions:$realm_version"],
-      [configuration: "kapt", dependency: "io.realm:realm-annotations-processor:$realm_version"]
+      [configuration: "kapt", dependency: "io.realm:realm-annotations-processor:$realm_version"]*/
   ]
 }

@@ -18,11 +18,10 @@ ext {
       [configuration: "implementation", dependency: "androidx.navigation:navigation-ui-ktx:$navigation_version"],
 
       // ViewModel and LiveData
-      [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"],
       [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"],
       [configuration: "implementation", dependency: "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"],
       [configuration: "kapt", dependency: "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"],
-      [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_version"],
+      [configuration: "testImplementation", dependency: "androidx.arch.core:core-testing:$lifecycle_core_version"],
 
       // android test
       [configuration: "testImplementation", dependency: "junit:junit:$junit_version"],

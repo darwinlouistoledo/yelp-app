@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 /**
  * This is an extension function that calls [ViewModelProviders.of]
@@ -15,7 +14,7 @@ inline fun <reified VM : ViewModel> withViewModel(
   factory: ViewModelProvider.Factory,
   function: VM.() -> Unit = {}
 ): VM {
-  val vm = ViewModelProviders.of(fragmentActivity, factory)[VM::class.java]
+  val vm = ViewModelProvider(fragmentActivity.viewModelStore, factory)[VM::class.java]
   vm.function()
   return vm
 }
@@ -29,7 +28,7 @@ inline fun <reified VM : ViewModel> withViewModel(
   factory: ViewModelProvider.Factory,
   function: VM.() -> Unit = {}
 ): VM {
-  val vm = ViewModelProviders.of(fragment, factory)[VM::class.java]
+  val vm = ViewModelProvider(fragment.viewModelStore, factory)[VM::class.java]
   vm.function()
   return vm
 }

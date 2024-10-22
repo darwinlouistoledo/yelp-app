@@ -3,7 +3,7 @@ package com.yelpbusiness.domain.rx
 import io.reactivex.ObservableEmitter
 import io.reactivex.SingleEmitter
 
-fun <T> SingleEmitter<T>.success(value: T) {
+fun <T : Any> SingleEmitter<T>.success(value: T) {
   if (!isDisposed) {
     onSuccess(value)
   }
@@ -15,7 +15,7 @@ fun <T> SingleEmitter<T>.error(error: Throwable) {
   }
 }
 
-fun <T> ObservableEmitter<T>.next(value: T) {
+fun <T : Any> ObservableEmitter<T>.next(value: T) {
   if (!isDisposed) {
     onNext(value)
   }
