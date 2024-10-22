@@ -1,6 +1,7 @@
 package com.yelpbusiness.common_android.util.location
 
 import android.Manifest.permission
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
@@ -117,6 +118,7 @@ class LocationManagerImpl(
     }
   }
 
+  @SuppressLint("MissingPermission")
   private fun getCurrentLocation(rxLocationProvider: ReactiveLocationProvider): Observable<LocationStatus> =
     rxLocationProvider.getUpdatedLocation(
       LocationRequest()
