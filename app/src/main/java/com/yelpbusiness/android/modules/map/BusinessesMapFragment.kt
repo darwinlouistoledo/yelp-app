@@ -138,8 +138,8 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
     mapFragment.getMapAsync(this)
   }
 
-  override fun onMapReady(googleMap: GoogleMap?) {
-    googleMap?.let {
+  override fun onMapReady(googleMap: GoogleMap) {
+    googleMap.let {
       mGoogleMap = it
       mGoogleMap?.setOnMarkerClickListener(this)
       mGoogleMap?.setOnInfoWindowClickListener(this)
@@ -159,15 +159,15 @@ class BusinessesMapFragment : AppFragment(), OnMapReadyCallback, OnMarkerClickLi
     }
   }
 
-  override fun onMarkerClick(marker: Marker?): Boolean {
-    marker?.let {
+  override fun onMarkerClick(marker: Marker): Boolean {
+    marker.let {
       it.showInfoWindow()
     }
     return true
   }
 
-  override fun onInfoWindowClick(marker: Marker?) {
-    marker?.let {
+  override fun onInfoWindowClick(marker: Marker) {
+    marker.let {
       if (it.tag is Business) {
         val b = it.tag as Business
         findNavController().navigate(

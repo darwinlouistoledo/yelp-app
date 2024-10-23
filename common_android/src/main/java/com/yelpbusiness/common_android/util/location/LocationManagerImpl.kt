@@ -138,7 +138,7 @@ class LocationManagerImpl(
         .build()
     )
     .switchMap { result ->
-      when (result.locationSettingsStates.isLocationUsable) {
+      when (result.locationSettingsStates?.isLocationUsable) {
         true -> Observable.just(LocationStatus.IsLocationOn(true))
         else -> Observable.just(LocationStatus.IsLocationOn(false))
       }
